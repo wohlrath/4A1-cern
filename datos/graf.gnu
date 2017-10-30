@@ -1,16 +1,20 @@
 #!/usr/bin/gnuplot
 
-set terminal epslatex size 18cm,12cm color colortext
-set output 'graf.tex'
+
 
 set title
-set xlabel ''
-set ylabel ''
+set xlabel 'N'
+set ylabel 'nejistota střední hodnoty (\si{\GeV\per $c^2$})'
 set grid x,y
-set yrange[0:10]
-set xrange[0:10]
+set yrange[0:0.7]
+set xrange[0:1500]
 
-plot x
+set terminal epslatex size 10cm,8cm
+set output 'chyby.tex'
+
+f(x)=c/sqrt(x)
+fit f(x) 'poisson' u 1:3 via c
+plot 'poisson' u 1:3 ps 4 lw 2 title 'naměřená data', f(x) ls 1 lw 3 title '$5,57/\sqrt{N}$'
 
 set terminal wxt
 set output
